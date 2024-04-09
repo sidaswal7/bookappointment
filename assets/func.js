@@ -40,3 +40,12 @@ function showDetails(userDetails){
     ul.append(li);
 
 }
+window.addEventListener('DOMContentLoaded',()=>{
+    axios.get('https://crudcrud.com/api/b722f579178d4b92bf7afe26e0ca8518/bookappointment')
+    .then((res)=>{
+        for(let i=0;i<res.data.length;i++){
+            showDetails(res.data[i])
+        }
+    })
+    .catch((error)=>console.log(error));
+})
