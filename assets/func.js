@@ -7,8 +7,7 @@ form.addEventListener('submit',function handleFormSubmit(event){
     let phone = event.target.phone.value;
 
     let userDetails = {username,email,phone};
-    console.log(userDetails)
-    axios.post("https://crudcrud.com/api/b722f579178d4b92bf7afe26e0ca8518/bookappointment",userDetails)
+    axios.post("https://crudcrud.com/api/33c7b3b3da8848bc85ff8ad52a150331/bookappointment",userDetails)
     .then((res)=>showDetails(res.data))
     .catch((error)=>console.log(error))
 
@@ -19,12 +18,16 @@ form.addEventListener('submit',function handleFormSubmit(event){
 })
 
 function showDetails(userDetails){
+    console.log(userDetails )
     let li = document.createElement('li');
     li.innerText = `${userDetails.username} - ${userDetails.email} - ${userDetails.phone}`
     let deletebtn = document.createElement('button');
     deletebtn.className = 'delete-btn';
     deletebtn.innerText = 'Delete';
     deletebtn.onclick = ()=>{
+        axios.delete(`https://crudcrud.com/api/33c7b3b3da8848bc85ff8ad52a150331/bookappointment/${userDetails._id}`)
+        .then(res=>console.log("user deleted"))
+        .catch(error=>console.log(error))
         ul.removeChild(li);
     }
     let editbtn = document.createElement('button');
@@ -41,9 +44,10 @@ function showDetails(userDetails){
 
 }
 window.addEventListener('DOMContentLoaded',()=>{
-    axios.get('https://crudcrud.com/api/b722f579178d4b92bf7afe26e0ca8518/bookappointment')
+    axios.get('https://crudcrud.com/api/33c7b3b3da8848bc85ff8ad52a150331/bookappointment')
     .then((res)=>{
         for(let i=0;i<res.data.length;i++){
+
             showDetails(res.data[i])
         }
     })
